@@ -1,10 +1,12 @@
 package Biblioteca.negocio;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="ejemplares")
@@ -16,6 +18,19 @@ public class Ejemplar {
 	
 	@Column
 	private String localizacion;
+	
+	@ManyToOne
+	@JoinColumn(name="libro")
+	private Libro libro;
+	
+	
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
+	}
 
 	public long getCodEjemplar() {
 		return codEjemplar;

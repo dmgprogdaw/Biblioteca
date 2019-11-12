@@ -1,10 +1,13 @@
 package Biblioteca.negocio;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+import Biblioteca.negocio.Libro;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="autores")
@@ -16,6 +19,26 @@ public class Autor {
 	
 	@Column
 	private String nombre;
+	
+	@ManyToMany(mappedBy="autores")
+	private List<Libro> libros = new ArrayList<Libro>();
+	
+	public void addLibros(Libro libro) {
+		
+		if(!libros.contains(libro)) {
+			
+			libros.add(libro);
+			libro.addAutor(this);
+		}
+	}	
+
+	public List<Libro> getLibros() {
+		return libros;
+	}
+
+	public void setLibros(List<Libro> libros) {
+		this.libros = libros;
+	}
 
 	public long getCodAutor() {
 		return codAutor;

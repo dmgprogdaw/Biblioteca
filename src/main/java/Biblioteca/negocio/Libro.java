@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Column;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="libros", uniqueConstraints = @UniqueConstraint(columnNames = {"isbn"}))
@@ -26,6 +29,45 @@ public class Libro {
 	
 	@Column
 	private int paginas;
+	
+	@ManyToMany
+	private List<Autor> autores = new ArrayList<Autor>();
+	
+	@OneToMany(mappedBy="libro")
+	private List<Ejemplar> ejemplarLibro = new ArrayList<Ejemplar>();
+	
+	public void addEjemplarLibro(Ejemplar ejemplar) {
+		
+		if(!ejemplarLibro.contains(ejemplar)) {
+			
+			ejemplarLibro.add(ejemplar);
+		}
+	}
+	
+	public void addAutor(Autor autor) {
+		
+		if(!autores.contains(autor)) {
+			
+			autores.add(autor);
+			autor.addLibros(this);
+		}
+	}
+
+	public List<Ejemplar> getEjemplarLibro() {
+		return ejemplarLibro;
+	}
+
+	public void setEjemplarLibro(List<Ejemplar> ejemplarLibro) {
+		this.ejemplarLibro = ejemplarLibro;
+	}
+
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
 
 	public long getCodLibro() {
 		return codLibro;
@@ -66,6 +108,5 @@ public class Libro {
 	public void setPaginas(int paginas) {
 		this.paginas = paginas;
 	}
-	
 	
 }

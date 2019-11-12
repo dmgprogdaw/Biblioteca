@@ -21,40 +21,45 @@ public class Start {
 		david.setDireccion("Corigos");
 		david.setTelefono("123456789");
 		
-		/**** INTRODUCIMOS LOS EJEMPLARES ****/
-		Ejemplar ejemplar1 = new Ejemplar();
-		ejemplar1.setCodEjemplar(1L);
-		ejemplar1.setLocalizacion("Japón");
-		
 		/**** INTRODUCIMOS LOS LIBROS ****/
 		Libro ubelBlatt = new Libro();
 		ubelBlatt.setCodLibro(1L);
 		ubelBlatt.setNombre("Übel Blatt");
 		ubelBlatt.setEditorial("Big Gangan");
 		ubelBlatt.setIsbn("1252-2258-2223");
-		ubelBlatt.setPaginas(60);
+		ubelBlatt.setPaginas(448);
 		
+		/**** INTRODUCIMOS LOS EJEMPLARES ****/
+		Ejemplar tomo1 = new Ejemplar();
+		tomo1.setCodEjemplar(1L);
+		tomo1.setLocalizacion("Japón");
+		tomo1.setLibro(ubelBlatt);
+	
 		/**** INTRODUCIMOS LOS AUTORES****/
 		Autor shionoEtorouji = new Autor();
 		shionoEtorouji.setCodAutor(1L);
 		shionoEtorouji.setNombre("Shiono Etorouji");
+		
+		/**** INTROSUCIMOS LOS DATOS EN LA LAS LISTAS****/
+		shionoEtorouji.addLibros(ubelBlatt);
 		
 		
 		/**** CREAMOS LOS USUARIOS****/
 		CreateUsuario usuarios = new CreateUsuario();
 		usuarios.create(david);
 		
-		/**** CREAMOS LOS EJEMPLARES****/
-		CreateEjemplar ejemplares = new CreateEjemplar();
-		ejemplares.create(ejemplar1);
+		/**** CREAMOS LOS AUTORES****/
+		CreateAutores autores = new CreateAutores();
+		autores.createLibro(shionoEtorouji);
 		
 		/**** CREAMOS LOS LIBROS****/
 		CreateLibros libros = new CreateLibros();
 		libros.createLibro(ubelBlatt);
 		
-		/**** CREAMOS LOS AUTORES****/
-		CreateAutores autores = new CreateAutores();
-		autores.createLibro(shionoEtorouji);
+		/**** CREAMOS LOS EJEMPLARES****/
+		CreateEjemplar ejemplares = new CreateEjemplar();
+		ejemplares.create(tomo1);
+			
 		
 		ConnectionEntityManagerFactory.getEntityManagerFactory().close();
 	}
