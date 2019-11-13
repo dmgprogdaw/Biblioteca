@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 
 @Entity
@@ -22,7 +27,25 @@ public class Usuario {
 	
 	@Column
 	private String direccion;
+	
+	@OneToMany
+	private List<Sacar> extraccionesUsuario = new ArrayList<Sacar>();
+	
+	public void addExtraccion(Sacar extraccion) {
+		
+		if(!extraccionesUsuario.contains(extraccion)) {
+			
+			extraccionesUsuario.add(extraccion);
+		}
+	}	
+	
+	public List<Sacar> getExtracciones() {
+		return extraccionesUsuario;
+	}
 
+	public void setExtracciones(List<Sacar> extraccionesUsuario) {
+		this.extraccionesUsuario = extraccionesUsuario;
+	}
 
 	public long getCodUsuario() {
 		return codUsuario;

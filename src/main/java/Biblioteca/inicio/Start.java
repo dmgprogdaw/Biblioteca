@@ -3,11 +3,13 @@ package Biblioteca.inicio;
 import Biblioteca.modelo.autores.CreateAutores;
 import Biblioteca.modelo.ejemplares.CreateEjemplar;
 import Biblioteca.modelo.libros.CreateLibros;
+import Biblioteca.modelo.sacar.CreateSacar;
 import Biblioteca.modelo.usuarios.CreateUsuario;
 import Biblioteca.modelo.util.ConnectionEntityManagerFactory;
 import Biblioteca.negocio.Autor;
 import Biblioteca.negocio.Ejemplar;
 import Biblioteca.negocio.Libro;
+import Biblioteca.negocio.Sacar;
 import Biblioteca.negocio.Usuario;
 
 public class Start {
@@ -40,6 +42,13 @@ public class Start {
 		shionoEtorouji.setCodAutor(1L);
 		shionoEtorouji.setNombre("Shiono Etorouji");
 		
+		/**** INTRODUCIMOS LOS EJEMPLARES SACADOS ****/
+		Sacar extraccion1 = new Sacar();
+		extraccion1.setEjemplar(tomo1);
+		extraccion1.setUsuario(david);
+		extraccion1.setFechaPrestamo("01-10-2019");
+		extraccion1.setFechaDevolucion("01-12-2019");
+		
 		/**** INTROSUCIMOS LOS DATOS EN LA LAS LISTAS****/
 		shionoEtorouji.addLibros(ubelBlatt);
 		
@@ -59,6 +68,9 @@ public class Start {
 		/**** CREAMOS LOS EJEMPLARES****/
 		CreateEjemplar ejemplares = new CreateEjemplar();
 		ejemplares.create(tomo1);
+		
+		CreateSacar extracciones = new CreateSacar();
+		extracciones.createExtracciones(extraccion1);
 			
 		
 		ConnectionEntityManagerFactory.getEntityManagerFactory().close();
